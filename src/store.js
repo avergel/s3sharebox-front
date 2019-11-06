@@ -5,15 +5,16 @@ import thunk from 'redux-thunk'
 import userReducer from './reducers/userReducer'
 import notificationReducer from './reducers/notificationReducer'
 
-const reducer = combineReducers({
+const reducers = combineReducers({
   user: userReducer,
   notification: notificationReducer
 })
 
-const store = createStore(reducer,
+const store = createStore(reducers,
   composeWithDevTools(
     applyMiddleware(thunk)
   )
 )
 
+// store.subscribe(() => saveUser(store.getState()))
 export default store

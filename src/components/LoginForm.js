@@ -1,14 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { login } from '../reducers/userReducer'
-import { withRouter } from 'react-router-dom'
-const LoginForm = withRouter((props) => {
+import { setNotification, clearNotification } from '../reducers/notificationReducer'
+import loginService from '../services/login'
+import { saveUser } from '../utils/localStorage'
+
+const LoginForm = (props) => {
   const login = async (event) => {
     event.preventDefault()
     const username = event.target.username.value
     const password = event.target.password.value
-    props.history.push('/files');
-    props.login(username, password)
+    try {
+      const user = await loginService.login({ username, password })
+      saveUser(user)
+      props.setUser(user)
+      props.clearNotification()
+    } catch (exception) {
+      console.error(exception)
+      props.setNotification('Wrong Credentials')
+    }
   }
   return (
     <div>
@@ -25,7 +34,7 @@ const LoginForm = withRouter((props) => {
 
     </div>
   )
-})
+}
 
 const mapStateToProps = (state) => {
   return {
@@ -34,7 +43,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  login
+  setNotification,
+  clearNotification
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)

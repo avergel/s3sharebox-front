@@ -17,4 +17,12 @@ export const setNotification = (message) => {
     })
   }
 }
+
+export const clearNotification = () => {
+  return async dispatch => {
+    dispatch({
+      type: 'CLEAR_NOTIFICATION'
+    })
+  }
+}
 export default reducer

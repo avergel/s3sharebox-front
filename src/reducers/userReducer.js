@@ -1,4 +1,5 @@
 import loginService from '../services/login'
+import { saveUser, removeUser } from '../utils/localStorage'
 
 const reducer = (state = {}, action) => {
   switch (action.type) {
@@ -19,7 +20,8 @@ export const login = (username, password) => {
         type: 'LOGIN',
         data: loginResponse
       })
-      window.localStorage.setItem('user', JSON.stringify(loginResponse))
+      saveUser(loginResponse)
+      // window.localStorage.setItem('user', JSON.stringify(loginResponse))
       dispatch({
         type: 'CLEAR_NOTIFICATION'
       })
@@ -38,7 +40,8 @@ export const logout = () => {
     dispatch({
       type: 'LOGOUT'
     })
-    window.localStorage.removeItem('user')
+    // window.localStorage.removeItem('user')
+    removeUser()
   }
 }
 

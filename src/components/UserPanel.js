@@ -1,12 +1,16 @@
 import React from 'react'
-import { logout } from '../reducers/userReducer'
 import { connect } from 'react-redux'
+import { loadUser, removeUser } from '../utils/localStorage'
 
 const UserPanel = (props) => {
+  const logout = async() => {
+    removeUser()
+    props.setUser(null)
+  }
   return (
     <div>
-      {JSON.parse(window.localStorage.getItem('user')) ? JSON.parse(window.localStorage.getItem('user')).username : null}
-      <button type="submit" onClick={props.logout}>logout</button>
+      {loadUser() ? loadUser().username : null}
+      <button type="submit" onClick={logout}>logout</button>
     </div>
   )
 }
@@ -17,8 +21,5 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = {
-  logout
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserPanel)
+export default connect(mapStateToProps)(UserPanel)
