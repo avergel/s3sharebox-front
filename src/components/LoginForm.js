@@ -1,20 +1,40 @@
 import React from 'react'
-
-const LoginForm = (props) => {
+import { connect } from 'react-redux'
+import { login } from '../reducers/userReducer'
+import { withRouter } from 'react-router-dom'
+const LoginForm = withRouter((props) => {
+  const login = async (event) => {
+    event.preventDefault()
+    const username = event.target.username.value
+    const password = event.target.password.value
+    props.history.push('/files');
+    props.login(username, password)
+  }
   return (
     <div>
-      <form onSubmit={props.handleLogin}>
+      {props.notification}
+      <form onSubmit={login}>
         <div>
-          username <input type="text" name="Username" onChange={({ target }) => props.setUsername(target.value)} />
+          username <input type="text" name="username" />
         </div>
         <div>
-          password <input type="password" name="Passsword" onChange={({ target }) => props.setPassword(target.value)} />
+          password <input type="password" name="password" />
         </div>
         <button type="submit">login</button>
       </form>
 
     </div>
   )
+})
+
+const mapStateToProps = (state) => {
+  return {
+    notification: state.notification
+  }
 }
 
-export default LoginForm
+const mapDispatchToProps = {
+  login
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)
