@@ -1,12 +1,33 @@
 import loginService from '../services/login'
-import { saveUser, removeUser } from '../utils/localStorage'
+import localStorage from '../utils/localStorage'
 
-const reducer = (state = {}, action) => {
+const userLocalStorage = localStorage.loadUser();
+
+//TODO control expiryTime in LoggedIn
+export const initState = {
+  user: userLocalStorage,
+  isLoggedIn: userLocalStorage ? true : false,
+  userToken: userLocalStorage ? userLocalStorage.idToken : null
+}
+
+const reducer = (state = initState, action) => {
   switch (action.type) {
     case 'LOGIN':
-      return action.data
+      localStorage.saveUser(action.data)
+      return {
+        ...state,
+        user: action.data,
+        userToken: action.data.idToken,
+        isLoggedIn: true
+      }
     case 'LOGOUT':
-      return {}
+      localStorage.removeUser()
+      return {
+        ...state,
+        user: null,
+        userToken: null,
+        isLoggedIn: false
+      }
     default:
       return state
   }
@@ -20,8 +41,6 @@ export const login = (username, password) => {
         type: 'LOGIN',
         data: loginResponse
       })
-      saveUser(loginResponse)
-      // window.localStorage.setItem('user', JSON.stringify(loginResponse))
       dispatch({
         type: 'CLEAR_NOTIFICATION'
       })
@@ -40,8 +59,6 @@ export const logout = () => {
     dispatch({
       type: 'LOGOUT'
     })
-    // window.localStorage.removeItem('user')
-    removeUser()
   }
 }
 

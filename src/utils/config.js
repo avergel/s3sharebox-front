@@ -1,3 +1,3 @@
-const backendServer = 'http://localhost:8080'
+const backendServerUrl = 'http://localhost:8080'
 
-export default backendServer
+export default backendServerUrl

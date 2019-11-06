@@ -1,10 +1,9 @@
 import axios from 'axios'
-import backendServer from '../utils/config'
+import backendServerUrl from '../utils/config'
 
-const baseUrl = `${backendServer}/auth/login`
+const baseUrl = `${backendServerUrl}/auth/login`
 
 const login = async credentials => {
-  console.log(credentials)
   const response = await axios.post(baseUrl, credentials)
   return response.data
 }

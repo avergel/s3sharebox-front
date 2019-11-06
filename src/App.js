@@ -1,34 +1,27 @@
-import React, { useState } from 'react'
+import React from 'react'
 import LoginForm from './components/LoginForm'
 import UserPanel from './components/UserPanel'
 import {
   BrowserRouter as Router, Route, Redirect
 } from 'react-router-dom'
+import AuthenticatedRoute from './components/AuthenticatedRoute'
+import { connect } from 'react-redux'
 
-const App = () => {
-  const [user, setUser] = useState(JSON.parse(window.localStorage.getItem('user')))
+const App = ({ isLoggedIn }) => {
   return (
     <div className="App">
       <Router>
         <React.Fragment>
           <Route path="/" render={() =>
-            !user ?
+            !isLoggedIn ?
               <div>
                 <h1>S3ShareBox</h1>
-                <LoginForm setUser={setUser} />
+                <LoginForm />
               </div>
               :
               <Redirect to="/files" />
           } />
-          <Route path="/files" render={() =>
-            !user ?
-              < Redirect to="/" />
-              :
-              <div>
-                <UserPanel setUser={setUser} />
-                <h1>S3ShareBox</h1>
-              </div>
-          } />
+          <AuthenticatedRoute path="/files" component={() => <UserPanel />} />
         </React.Fragment>
       </Router>
     </div>
@@ -36,4 +29,9 @@ const App = () => {
   )
 }
 
-export default App
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.user.isLoggedIn || false,
+  }
+}
+export default connect(mapStateToProps)(App)

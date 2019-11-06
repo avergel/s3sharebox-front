@@ -1,23 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { setNotification, clearNotification } from '../reducers/notificationReducer'
-import loginService from '../services/login'
-import { saveUser } from '../utils/localStorage'
+import { login } from '../reducers/userReducer'
 
 const LoginForm = (props) => {
   const login = async (event) => {
     event.preventDefault()
     const username = event.target.username.value
     const password = event.target.password.value
-    try {
-      const user = await loginService.login({ username, password })
-      saveUser(user)
-      props.setUser(user)
-      props.clearNotification()
-    } catch (exception) {
-      console.error(exception)
-      props.setNotification('Wrong Credentials')
-    }
+    props.login(username, password)
   }
   return (
     <div>
@@ -43,6 +34,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
+  login,
   setNotification,
   clearNotification
 }
