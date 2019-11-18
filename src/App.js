@@ -1,6 +1,6 @@
 import React from 'react'
 import LoginForm from './components/LoginForm'
-import UserPanel from './components/UserPanel'
+import Browser from './components/Browser'
 import {
   BrowserRouter as Router, Route, Redirect
 } from 'react-router-dom'
@@ -21,7 +21,7 @@ const App = ({ isLoggedIn }) => {
               :
               <Redirect to="/files" />
           } />
-          <AuthenticatedRoute path="/files" component={() => <UserPanel />} />
+          <AuthenticatedRoute path="/files" component={<Browser />}></AuthenticatedRoute>
         </React.Fragment>
       </Router>
     </div>
@@ -31,7 +31,7 @@ const App = ({ isLoggedIn }) => {
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.user.isLoggedIn || false,
+    isLoggedIn: state.user.isLoggedIn || false
   }
 }
 export default connect(mapStateToProps)(App)

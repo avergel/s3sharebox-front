@@ -1,28 +1,34 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
+import UserPanel from './UserPanel'
 
 const AuthenticatedRoute = (
   {
-    component: Component,
+    component,
     isLoggedIn,
     ...rest
   }
 ) => {
+  // const componentWithAuth = { ...component, props: { token: token, ...component.props } }
   return (
-    <Route {...rest} render={props =>
-        isLoggedIn ? (
-        <Component {...props} />
-        ) : (
-        <Redirect to='/' />
+    <Route {...rest} render={() =>
+      isLoggedIn ? (
+        <React.Fragment>
+          <UserPanel />
+          <div className='component'>{component}</div>
+        </React.Fragment>
+      ) : (
+          <Redirect to='/' />
         )
-      } />
+    } />
   )
 }
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.user.isLoggedIn || false
+    isLoggedIn: state.user.isLoggedIn || false,
+    token: state.user.userToken
   }
 }
 
