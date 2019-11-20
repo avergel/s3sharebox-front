@@ -1,7 +1,9 @@
+import { SET_NOTIFICATION, CLEAR_NOTIFICATION } from '../actionTypes'
+
 export const setNotification = (message, variant) => {
   return async dispatch => {
     dispatch({
-      type: 'SET_NOTIFICATION',
+      type: SET_NOTIFICATION,
       data: { message, variant }
     })
   }
@@ -10,7 +12,7 @@ export const setNotification = (message, variant) => {
 export const clearNotification = () => {
   return async dispatch => {
     dispatch({
-      type: 'CLEAR_NOTIFICATION'
+      type: CLEAR_NOTIFICATION
     })
   }
 }

@@ -1,3 +1,4 @@
+import { LOGIN, LOGOUT, REFRESH_TOKEN } from '../actionTypes'
 import localStorage from '../utils/localStorage'
 
 const userLocalStorage = localStorage.loadUser();
@@ -10,7 +11,7 @@ const initState = {
 
 const reducer = (state = initState, action) => {
   switch (action.type) {
-    case 'LOGIN':
+    case LOGIN:
       return {
         ...state,
         user: action.data,
@@ -18,7 +19,7 @@ const reducer = (state = initState, action) => {
         refreshToken: action.data.refreshToken,
         isLoggedIn: true
       }
-    case 'LOGOUT':
+    case LOGOUT:
       return {
         ...state,
         user: null,
@@ -26,7 +27,7 @@ const reducer = (state = initState, action) => {
         refreshToken: null,
         isLoggedIn: false
       }
-    case 'REFRESH_TOKEN':
+    case REFRESH_TOKEN:
       var updatedUser = {
         ...state.user,
         idToken: action.data.idToken,

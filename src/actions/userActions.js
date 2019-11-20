@@ -2,6 +2,7 @@ import authService from '../services/auth'
 import localStorage from '../utils/localStorage'
 import { setNotification, clearNotification } from './notificationActions'
 import { clearBucket } from './fileActions'
+import { LOGIN, LOGOUT, REFRESH_TOKEN } from '../actionTypes'
 
 export const login = (username, password) => {
   return async dispatch => {
@@ -9,7 +10,7 @@ export const login = (username, password) => {
       const loginResponse = await authService.login({ username, password })
       localStorage.saveUser(loginResponse)
       dispatch({
-        type: 'LOGIN',
+        type: LOGIN,
         data: loginResponse
       })
       dispatch(clearNotification())
@@ -31,7 +32,7 @@ export const logout = (token) => {
     } finally {
       dispatch(clearBucket())
       dispatch({
-        type: 'LOGOUT'
+        type: LOGOUT
       })
     }
   }
@@ -49,7 +50,7 @@ export const refreshToken = (refreshToken) => {
       }
       localStorage.saveUser(updatedUser)
       dispatch({
-        type: 'REFRESH_TOKEN',
+        type: REFRESH_TOKEN,
         data: response
       })
     } catch (exception) {

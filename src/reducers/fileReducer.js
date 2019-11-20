@@ -1,5 +1,4 @@
-import fileService from '../services/file'
-import { refreshToken } from '../actions/userActions'
+import { SET_BUCKET, CLEAR_BUCKET } from '../actionTypes'
 
 const initialState = {
   currentFolder: {
@@ -12,9 +11,9 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_BUCKET':
+    case SET_BUCKET:
       return action.data
-    case 'CLEAR_BUCKET':
+    case CLEAR_BUCKET:
       return initialState
     default:
       return state
