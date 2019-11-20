@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { setBucket } from '../reducers/fileReducer'
-import { refreshToken } from '../reducers/userReducer'
-import fileService from '../services/file'
+import { listFiles, getFile } from '../actions/fileActions'
 import ReactLoading from 'react-loading';
 import Files from './Files'
 import Folders from './Folders'
@@ -12,16 +10,10 @@ const Browser = (props) => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fileService.listFiles(props.userToken, prefixPath)
-      .then(response => {
-        props.setBucket(response)
-        setLoading(false)
-      }).catch(exception => {
-        if (exception.response.status === 401 && exception.response.data.message === 'Expired JWT') {
-          props.callRefreshToken(props.refreshToken)
-        }
-      })
-  }, [prefixPath, props.userToken])
+    props.listFiles(prefixPath, props.userToken, props.refreshToken)
+      .then(() => setLoading(false))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [prefixPath])
 
   const handlePrefixPath = (path) => {
     setPrefixPath(path)
@@ -29,7 +21,7 @@ const Browser = (props) => {
   }
 
   const handleDownloadFile = (path) => {
-    fileService.getFile(props.userToken, path)
+    props.getFile(path, props.userToken, props.refreshToken)
   }
 
   return (
@@ -64,8 +56,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  setBucket,
-  callRefreshToken: refreshToken
+  listFiles,
+  getFile
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Browser)

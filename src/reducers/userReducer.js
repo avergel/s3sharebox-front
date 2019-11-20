@@ -1,9 +1,6 @@
-import authService from '../services/auth'
 import localStorage from '../utils/localStorage'
 
 const userLocalStorage = localStorage.loadUser();
-//TODO mirar arquitectura redux: actions, etc
-//TODO control expiryTime in LoggedIn
 const initState = {
   user: userLocalStorage,
   isLoggedIn: userLocalStorage ? true : false,
@@ -14,7 +11,6 @@ const initState = {
 const reducer = (state = initState, action) => {
   switch (action.type) {
     case 'LOGIN':
-      localStorage.saveUser(action.data)
       return {
         ...state,
         user: action.data,
@@ -23,16 +19,6 @@ const reducer = (state = initState, action) => {
         isLoggedIn: true
       }
     case 'LOGOUT':
-      localStorage.removeUser()
-      return {
-        ...state,
-        user: null,
-        userToken: null,
-        refreshToken: null,
-        isLoggedIn: false
-      }
-    case 'REMOVE_AUTHENTICATION':
-      localStorage.removeUser()
       return {
         ...state,
         user: null,
@@ -47,7 +33,6 @@ const reducer = (state = initState, action) => {
         accessToken: action.data.accessToken,
         expiresIn: action.data.expiresIn,
       }
-      localStorage.saveUser(updatedUser)
       return {
         ...state,
         user: updatedUser,
@@ -55,64 +40,6 @@ const reducer = (state = initState, action) => {
       }
     default:
       return state
-  }
-}
-
-export const login = (username, password) => {
-  return async dispatch => {
-    try {
-      const loginResponse = await authService.login({ username, password })
-      dispatch({
-        type: 'LOGIN',
-        data: loginResponse
-        // data: data
-      })
-      dispatch({
-        type: 'CLEAR_NOTIFICATION'
-      })
-    } catch (exception) {
-      dispatch({
-        type: 'SET_NOTIFICATION',
-        data: 'Wrong credentials'
-      })
-      console.error(exception)
-    }
-  }
-}
-
-export const logout = (token) => {
-  return async dispatch => {
-    try {
-      await authService.logout(token)
-    } catch (exception) {
-      console.error(exception)
-    } finally {
-      dispatch({
-        type: 'CLEAR_BUCKET'
-      })
-      dispatch({
-        type: 'LOGOUT'
-      })
-    }
-  }
-}
-
-export const refreshToken = (refreshToken) => {
-  return async dispatch => {
-    try {
-      const refreshTokenResponse = await authService.refreshToken(refreshToken)
-      dispatch({
-        type: 'REFRESH_TOKEN',
-        data: refreshTokenResponse
-      })
-    } catch (exception) {
-      dispatch({
-        type: 'CLEAR_BUCKET'
-      })
-      dispatch({
-        type: 'LOGOUT'
-      })
-    }
   }
 }
 

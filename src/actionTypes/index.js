@@ -1,0 +1,7 @@
+export const LOGIN = 'LOGIN'
+export const LOGOUT = 'LOGOUT'
+export const REFRESH_TOKEN = 'REFRESH_TOKEN'
+export const SET_BUCKET = 'SET_BUCKET'
+export const CLEAR_BUCKET = 'CLEAR_BUCKET'
+export const SET_NOTIFICATION = 'SET_NOTIFICATION'
+export const CLEAR_NOTIFICATION = 'CLEAR_NOTIFICATION'

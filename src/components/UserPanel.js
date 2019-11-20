@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { logout } from '../reducers/userReducer'
+import { logout } from '../actions/userActions'
 import { appName } from '../utils/config'
 
 const UserPanel = (props) => {

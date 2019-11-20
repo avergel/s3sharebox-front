@@ -1,3 +1,6 @@
+import fileService from '../services/file'
+import { refreshToken } from '../actions/userActions'
+
 const initialState = {
   currentFolder: {
     path: '/',
@@ -15,15 +18,6 @@ const reducer = (state = initialState, action) => {
       return initialState
     default:
       return state
-  }
-}
-
-export const setBucket = (bucket) => {
-  return async dispatch => {
-    dispatch({
-      type: 'SET_BUCKET',
-      data: bucket
-    })
   }
 }
 

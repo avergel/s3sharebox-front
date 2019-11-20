@@ -1,28 +1,14 @@
-const reducer = (state = null, action) => {
+const initState = { message: '', variant: 'success' }
+
+const reducer = (state = initState, action) => {
   switch (action.type) {
     case 'SET_NOTIFICATION':
       return action.data
     case 'CLEAR_NOTIFICATION':
-      return null
+      return initState
     default:
       return state
   }
 }
 
-export const setNotification = (message) => {
-  return async dispatch => {
-    dispatch ({
-      type: 'SET_NOTIFICATION',
-      data: message
-    })
-  }
-}
-
-export const clearNotification = () => {
-  return async dispatch => {
-    dispatch({
-      type: 'CLEAR_NOTIFICATION'
-    })
-  }
-}
 export default reducer

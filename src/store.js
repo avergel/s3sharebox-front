@@ -19,5 +19,4 @@ const store = createStore(reducers,
   )
 )
 
-// store.subscribe(() => saveUser(store.getState()))
 export default store
