@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { logout } from '../reducers/userReducer'
+import { appName } from '../utils/config'
 
 const UserPanel = (props) => {
   const userBarStyle = {
@@ -22,18 +23,21 @@ const UserPanel = (props) => {
     cursor: 'pointer'
   }
 
-  const logout = async () => {
-    props.logout()
+  const logout = async (userToken) => {
+    props.logout(userToken)
   }
+
   return (
     <div style={userBarStyle}>
-      <div className="row" style = {{ height: '100%' }}>
+      <div className="row" style={{ height: '100%' }}>
         <div className="col text-left">
-          <h3><i className='fa fa-cloud-upload'></i>&nbsp;S3ShareBox</h3>
+          <h3><i className='fa fa-cloud-upload'></i>&nbsp;{appName}</h3>
         </div>
         <div className="col" >
           <i className='fa fa-user'></i>&nbsp;{props.user.username}&nbsp;<br />
-          <button type="submit" style={logoutButtonStyle} onClick={logout}>logout <i className='fa fa-sign-out'></i></button>&nbsp;&nbsp;
+          <button type="submit" style={logoutButtonStyle} onClick={() => logout(props.userToken)}>
+            logout <i className='fa fa-sign-out'></i>
+          </button>&nbsp;&nbsp;
         </div>
       </div>
     </div>
@@ -42,7 +46,8 @@ const UserPanel = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user.user
+    user: state.user.user,
+    userToken: state.user.userToken
   }
 }
 

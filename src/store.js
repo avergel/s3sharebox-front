@@ -13,14 +13,8 @@ const reducers = combineReducers({
   bucket: fileReducer
 })
 
-// const customMiddleWare = store => next => action => {
-//   console.log("Middleware triggered:", action);
-//   next(action);
-// }
-
 const store = createStore(reducers,
   composeWithDevTools(
-    // applyMiddleware(customMiddleWare, thunk)
     applyMiddleware(thunk)
   )
 )

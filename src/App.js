@@ -1,11 +1,12 @@
 import React from 'react'
-import LoginForm from './components/LoginForm'
 import Browser from './components/Browser'
+import Home from './components/Home'
 import {
   BrowserRouter as Router, Route, Redirect
 } from 'react-router-dom'
 import AuthenticatedRoute from './components/AuthenticatedRoute'
 import { connect } from 'react-redux'
+
 
 const App = ({ isLoggedIn }) => {
   return (
@@ -14,10 +15,7 @@ const App = ({ isLoggedIn }) => {
         <React.Fragment>
           <Route path="/" render={() =>
             !isLoggedIn ?
-              <div>
-                <h1>S3ShareBox</h1>
-                <LoginForm />
-              </div>
+              <Home />
               :
               <Redirect to="/files" />
           } />

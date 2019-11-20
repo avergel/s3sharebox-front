@@ -27,16 +27,4 @@ export const setBucket = (bucket) => {
   }
 }
 
-// export const getFiles = (token, refreshTokenToken, prefixPath) => {
-//   return async dispatch => {
-//     console.log('getFiles antes de la llamada al Servicio')
-//     const response = await fileService.listFiles(token, prefixPath)
-//     console.log('getFiles despues de la llamada al Servicio')
-//     dispatch({
-//       type: 'SET_FILES',
-//       data: response
-//     })
-//   }
-// }
-
 export default reducer

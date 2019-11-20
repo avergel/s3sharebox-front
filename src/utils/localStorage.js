@@ -1,24 +1,13 @@
 const loadUser = () => {
-  try {
-    return JSON.parse(localStorage.getItem('user'))
-  } catch (error) {
-    return undefined
-  }
+  return JSON.parse(localStorage.getItem('user'))
 }
+
 const saveUser = (user) => {
-  try {
-    localStorage.setItem('user', JSON.stringify(user))
-  } catch (error) {
-    //TODO
-  }
+  localStorage.setItem('user', JSON.stringify(user))
 }
 
 const removeUser = () => {
-  try {
-    localStorage.removeItem('user')
-  } catch (error) {
-    //TODO
-  }
+  localStorage.removeItem('user')
 }
 
 export default { loadUser, saveUser, removeUser }

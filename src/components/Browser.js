@@ -6,7 +6,6 @@ import fileService from '../services/file'
 import ReactLoading from 'react-loading';
 import Files from './Files'
 import Folders from './Folders'
-import PreviousPath from './PreviousPath'
 import BreadCrumb from './BreadCrumb'
 const Browser = (props) => {
   const [prefixPath, setPrefixPath] = useState(props.bucket.currentFolder.path)
@@ -17,17 +16,20 @@ const Browser = (props) => {
       .then(response => {
         props.setBucket(response)
         setLoading(false)
-      })
-      .catch(exception => {
-        //TODO check token expired
-        console.error(exception)
-        props.callRefreshToken(props.refreshToken)
+      }).catch(exception => {
+        if (exception.response.status === 401 && exception.response.data.message === 'Expired JWT') {
+          props.callRefreshToken(props.refreshToken)
+        }
       })
   }, [prefixPath, props.userToken])
 
   const handlePrefixPath = (path) => {
     setPrefixPath(path)
     setLoading(true)
+  }
+
+  const handleDownloadFile = (path) => {
+    fileService.getFile(props.userToken, path)
   }
 
   return (
@@ -40,7 +42,7 @@ const Browser = (props) => {
           {props.bucket.folders.length + props.bucket.files.length > 0 ?
             <div>
               <Folders folders={props.bucket.folders} setPrefixPath={handlePrefixPath} />
-              <Files files={props.bucket.files} />
+              <Files files={props.bucket.files} downloadFile={handleDownloadFile} />
             </div>
             :
             <div>

@@ -3,12 +3,14 @@ import { buttonStyle } from '../utils/styles'
 import { appName } from '../utils/config'
 
 const BreadCrumb = ({ path, setPrefixPath }) => {
-  const rootButton = <button style={buttonStyle} key='/' onClick={() => setPrefixPath('/')}>S3ShareBox</button>
+  const breadCrumbButtonStyle = { ...buttonStyle, fontWeight: 500 }
+
+  const rootButton = <button style={breadCrumbButtonStyle} key='/' onClick={() => setPrefixPath('/')}>S3ShareBox</button>
 
   const buildButton = (splitted, i) => {
     const path = splitted.slice(0, i).join('/') + '/' + splitted[i] + '/'
     return (
-      <button style={buttonStyle} key={path} onClick={() => setPrefixPath(path)} >
+      <button style={breadCrumbButtonStyle} key={path} onClick={() => setPrefixPath(path)} >
         {splitted[i]}
       </button>
     )
