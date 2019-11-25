@@ -1,3 +1,8 @@
+# S3ShareBox
+This repository contains the frontend part of S3ShareBox, a cloud storage webapp using S3 for storing files and Cognito for manage user accounts.
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -11,7 +11,8 @@ export const listFiles = (prefixPath, token, refreshTokenToken) => {
         data: response
       })
     } catch (exception) {
-      if (refreshTokenToken && exception.response.status === 401 && exception.response.data.message === 'Expired JWT') {
+      if (refreshTokenToken && exception.response && exception.response.status === 401
+        && exception.response.data.message === 'Expired JWT') {
         await dispatch(refreshToken(refreshTokenToken))
         dispatch(listFiles(prefixPath, getState().user.userToken))
       }

@@ -17,7 +17,10 @@ const Browser = (props) => {
   useEffect(() => {
     props.listFiles(prefixPath, props.userToken, props.refreshToken)
       .then(() => {setLoading(false)
-      console.log('bla')})
+      .then(() => {
+        setLoading(false)
+        console.log('bla')
+      })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prefixPath])
 
@@ -57,13 +60,23 @@ const Browser = (props) => {
               No files
             </div>
           }
-          <Modal show={modalShow} onHide={() => setModalShow(false)}>
+          <Modal
+            size='lg'
+            centered
+            show={modalShow}
+            onHide={() => setModalShow(false)}>
             <Modal.Header closeButton>
               <Modal.Title>Upload</Modal.Title>
             </Modal.Header>
             <ModalBody>
               <Dropzone
-                styles={{ dropzone: { overflow: 'hidden' } }}
+                styles={{
+                  dropzone: {
+                    overflow: 'hidden',
+                    minHeight: '480px',
+                    backgroundColor: '#e3eefc'
+                  }
+                }}
                 multiple={false}
                 maxFiles={1}
                 onSubmit={handleUploadFile}
