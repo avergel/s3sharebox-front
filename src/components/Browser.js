@@ -16,7 +16,8 @@ const Browser = (props) => {
 
   useEffect(() => {
     props.listFiles(prefixPath, props.userToken, props.refreshToken)
-      .then(() => setLoading(false))
+      .then(() => {setLoading(false)
+      console.log('bla')})
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prefixPath])
 
@@ -29,10 +30,12 @@ const Browser = (props) => {
     props.getFile(path, props.userToken, props.refreshToken)
   }
 
-  const handleUploadFile = (files) => {
+  const handleUploadFile = async (files) => {
+    setLoading(true)
     console.log(files[0].file)
-    props.uploadFile(files[0].file, prefixPath, props.userToken, props.refreshToken)
     setModalShow(false)
+    await props.uploadFile(files[0].file, prefixPath, props.userToken, props.refreshToken)
+    setLoading(false)
   }
 
   return (
