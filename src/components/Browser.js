@@ -16,7 +16,6 @@ const Browser = (props) => {
 
   useEffect(() => {
     props.listFiles(prefixPath, props.userToken, props.refreshToken)
-      .then(() => {setLoading(false)
       .then(() => {
         setLoading(false)
         console.log('bla')
