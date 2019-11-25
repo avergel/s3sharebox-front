@@ -34,7 +34,7 @@ const UserPanel = (props) => {
           <h3><i className='fa fa-cloud-upload'></i>&nbsp;{appName}</h3>
         </div>
         <div className="col" >
-          <i className='fa fa-user'></i>&nbsp;{props.user.username}&nbsp;<br />
+          <i className='fa fa-user'></i>&nbsp;{props.username}&nbsp;<br />
           <button type="submit" style={logoutButtonStyle} onClick={() => logout(props.userToken)}>
             logout <i className='fa fa-sign-out'></i>
           </button>&nbsp;&nbsp;
@@ -46,7 +46,8 @@ const UserPanel = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user.user,
+    // user: state.user,
+    username: state.user.user.username,
     userToken: state.user.userToken
   }
 }

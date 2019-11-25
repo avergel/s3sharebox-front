@@ -28,4 +28,15 @@ const getFile = async (token, key) => {
   link.click();
 }
 
-export default { listFiles, getFile }
+const uploadFile = async (token, file, path) => {
+  const formData = new FormData();
+  formData.append('file', file)
+  formData.append('path', path)
+
+  await axios.post(`${baseUrl}/upload`, formData, {
+    ...getHeaderWithToken(token),
+    'content-type': 'multipart/form-data'
+  })
+}
+
+export default { listFiles, getFile, uploadFile }

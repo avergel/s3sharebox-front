@@ -32,6 +32,20 @@ export const getFile = (prefixPath, token, refreshTokenToken) => {
   }
 }
 
+export const uploadFile = (file, prefixPath, token, refreshTokenToken) => {
+  return async (dispatch, getState) => {
+    try {
+      await fileService.uploadFile(token, file, prefixPath)
+      dispatch(listFiles(prefixPath, token, refreshTokenToken))
+    } catch (exception) {
+      if (refreshTokenToken && exception.response.status === 401) {
+        await dispatch(refreshToken(refreshTokenToken))
+        dispatch(uploadFile(file, getState().user.userToken))
+      }
+    }
+  }
+}
+
 export const clearBucket = () => {
   return (dispatch) => {
     dispatch({
