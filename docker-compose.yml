@@ -1,0 +1,8 @@
+version: '2.2'
+
+services:
+  s3sharebox-client:
+    build: .
+    ports:
+      - "3000:80" # Map the exposed port 80 on the container to port 9090 on the host machine
+    restart: always

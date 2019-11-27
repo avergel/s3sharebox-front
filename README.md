@@ -1,5 +1,5 @@
 # S3ShareBox
-This repository contains the frontend part of **S3ShareBox**, a cloud storage webapp using S3 for storing files and Cognito for manage user accounts. The backend server repository is located at https://github.com/avergel/js-fullstack-course
+This repository contains the frontend part of **S3ShareBox**, a cloud storage webapp using AWS S3 for storing files and AWS Cognito for manage user accounts. The backend server repository is located at [s3sharebox-system](https://github.com/avergel/s3sharebox-system)
 
 ## Features
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -9,7 +9,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - *Work In Progress: Files can be moved, renamed and deleted*
 - *WIP Users can signup, change passwords and use the `forgot password` functionality*
 
-## Technologies and dependencies used
+## Technologies and frameworks used
 - React 16.11
 - Redux 7.1
 - Redux Thunk 2.3
@@ -18,9 +18,16 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Configuration
 In `/src/utils/config.js` change `backendServerUrl` const pointing to the backend server url.
 
+## Dependencies
+- Node.js
+- NPM
+
 ## Available Scripts
 
 In the project directory, you can run:
+
+## Run in docker
+In the project root folder, run `docker compose up`. It will expose the client on http://localhost:3000 url
 
 ### `npm start`
 
