@@ -10,7 +10,6 @@ const AuthenticatedRoute = (
     ...rest
   }
 ) => {
-  // const componentWithAuth = { ...component, props: { token: token, ...component.props } }
   return (
     <Route {...rest} render={() =>
       isLoggedIn ? (

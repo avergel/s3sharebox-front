@@ -1,6 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { buttonStyle } from '../utils/styles'
 import { appName } from '../utils/config'
+
+BreadCrumb.propTypes = {
+  path: PropTypes.string.isRequired,
+  setPrefixPath: PropTypes.func.isRequired
+}
 
 const BreadCrumb = ({ path, setPrefixPath }) => {
   const breadCrumbButtonStyle = { ...buttonStyle, fontWeight: 500 }

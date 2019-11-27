@@ -1,5 +1,11 @@
 import React from 'react'
 import buttonStyle from '../utils/styles'
+import PropTypes from 'prop-types'
+
+Folder.propTypes = {
+  folder: PropTypes.object.isRequired,
+  setPrefixPath: PropTypes.func.isRequired
+}
 
 const Folder = ({ folder, setPrefixPath }) => {
   return (

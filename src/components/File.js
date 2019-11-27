@@ -1,5 +1,11 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import buttonStyle from '../utils/styles'
+
+File.propTypes = {
+  file: PropTypes.object.isRequired,
+  downloadFile: PropTypes.func.isRequired
+}
 
 const File = ({ file, downloadFile }) => {
   return (

@@ -46,7 +46,6 @@ const UserPanel = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    // user: state.user,
     username: state.user.user.username,
     userToken: state.user.userToken
   }
